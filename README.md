@@ -9,4 +9,4 @@ While the original java code was extensively tested, I have not (yet!) written a
 Simply download or fork this repository and copy `PriorityQueue.cs` into your project's working folder. Usage instructions can be found in the code's documentation comments.
 
 ## Justification
-For a Unity game project of mine, one of the algorithms I wanted to implement required the use of a priority queue; however, .NET does not provide a default implementation of one. The result is my very own attempt at writing an efficient, generic, .NET compliant PriorityQueue<T> using C#. 
+For a Unity game project of mine, one of the algorithms I wanted to implement required the use of a priority queue; however, .NET does not provide a default implementation of one. The result is my very own attempt at writing an efficient, feature-complete, generic, and .NET compliant PriorityQueue<T> using C#. It's certainly not perfect, but I intend to improve it with time.
