@@ -11,6 +11,7 @@ using System;
 ///     <c>Enqueue()</c> runs in <c>O(log(n))</c> time, 
 ///     while <c>LookTop()</c> and <c>Dequeue()</c> take <c>O(1)</c>.
 /// </para>
+/// Author: Zane Wang
 /// </summary>
 /// <typeparam name="T">The type of the elements which are to be inserted into this PriorityQueue.</typeparam>
 public class PriorityQueue<T> : IEnumerable<T>, ICollection, IReadOnlyCollection<T> //where T : IComparable
@@ -365,7 +366,7 @@ public class PriorityQueue<T> : IEnumerable<T>, ICollection, IReadOnlyCollection
 
     /// <summary>
     /// This method restructures the tree to accommodate a removal.
-	/// The insertion target is compared to its children and swapped
+    /// The insertion target is compared to its children and swapped
     /// with the children of lower priority one until it's of 
     /// lower priority than its parent and of higher priority than its children.
     /// </summary>
