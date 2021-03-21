@@ -4,7 +4,7 @@
 ## Information
 This code was converted from a java project into something that takes advantage of C#'s feature set and that is more architecturally sound. 
 ~~While the original java code was extensively tested for correctness, I have not (yet!) written a comprehensive test suite for this code. All of the algorithms and the logic behind them should be perfectly correct, however.~~  
-UPDATE 3/20: I have written a program that tests the PriorityQueue with signed integer inputs. A suite of basic tests has been completed and passed. While more testing - expecially of object types - is needed, I can now confidently say that the core functionality of the PriorityQueue and their associated algorithms have been implemented correctly.
+UPDATE 3/20: I have written a program that tests the PriorityQueue with signed integer inputs. A suite of basic tests has been completed and passed. While more testing - expecially of object types - is needed, I can now confidently say that the core functionality of the PriorityQueue and its associated algorithms have been implemented correctly.
 
 ## How to Use
 Simply download or fork this repository and add `PriorityQueue.cs` to your project's solution. For Unity users, copy `PriorityQueue.cs` into the unity project's `Assets` folder. Usage instructions can be found in the code's documentation comments.
