@@ -18,14 +18,7 @@ namespace DotNETPriorityQueue
     public class PriorityQueue<T> : IEnumerable<T>, ICollection, IReadOnlyCollection<T> //where T : IComparable
     {
         // Backing heap information
-        /// <summary>
-        /// The priority queue is backed by a binary heap, which is an array of generics.
-        /// An item on the heap is in the correct spot if it is
-        /// of higher priority than its children
-        /// and
-        /// of lower priority than its parent.
-        /// </summary>
-        private T[] heap;
+        private T[] heap; // The priority queue is backed by a binary heap, which is an array containing type T.
         private int count; // How many elements are in the heap?
         private int capacity; // Maximum capacity of the heap
         private int masterIndex; // The next index to insert at
@@ -50,7 +43,7 @@ namespace DotNETPriorityQueue
         /// Priority Queues that use one of the default comparison functions must take elements that implement <c>IComparable</c>.
         /// </summary>
         /// <param name="first">The first element.</param>
-        /// <param name="second">The second elemnt.</param>
+        /// <param name="second">The second element.</param>
         /// <returns>
         ///     <c>true</c> if the first item is of greater priority, and <c>false</c> otherwise.
         /// </returns>
@@ -111,6 +104,13 @@ namespace DotNETPriorityQueue
         }
 
         //Properties for the PriorityQueue's metadata
+        /// <summary>
+        /// The priority queue is backed by a binary heap, which is an array of generics.
+        /// An item on the heap is in the correct spot if it is
+        /// of higher priority than its children
+        /// and
+        /// of lower priority than its parent.
+        /// </summary>
         public T[] Heap { get => heap; private set => heap = value; }
         public int Count { get => count; }
         public bool IsSynchronized => Heap.IsSynchronized;
@@ -121,6 +121,12 @@ namespace DotNETPriorityQueue
         /// </summary>
         public PriorityQueue()
         {
+            //do not permit default construction if type param is not comparable
+            if(!typeof(IComparable).IsAssignableFrom(typeof(T)))
+            {
+                throw new InvalidCastException($"PriorityQueue constructed with type {nameof(T)} using default comparison functions does not contain a type that implements IComparable.");
+            }
+
             count = 0;
             masterIndex = 0;
 
@@ -138,6 +144,12 @@ namespace DotNETPriorityQueue
         /// <param name="size">Initial capacity of the backing heap.</param>
         public PriorityQueue(int size)
         {
+            //do not permit default construction if type param is not comparable
+            if (!typeof(IComparable).IsAssignableFrom(typeof(T)))
+            {
+                throw new InvalidCastException($"PriorityQueue constructed with type {nameof(T)} using default comparison functions does not contain a type that implements IComparable.");
+            }
+
             count = 0;
             masterIndex = 0;
 
@@ -155,6 +167,15 @@ namespace DotNETPriorityQueue
         /// <param name="lambda">The <c>CompareFunction</c> to use.</param>
         public PriorityQueue(CompareFunction lambda)
         {
+            //do not permit construction with default comparison functions if type param is not comparable
+            if (!typeof(IComparable).IsAssignableFrom(typeof(T)) && (lambda == MinHeapCompare || lambda == MaxHeapCompare))
+            {
+                throw new InvalidCastException(
+                    $"PriorityQueue constructed with type {nameof(T)} using default comparison functions does not contain a type that implements IComparable. \n" 
+                    + $"Try defining a custom comparison function or implement IComparable for type {nameof(T)}."
+                    );
+            }
+
             count = 0;
             masterIndex = 0;
 
@@ -173,6 +194,15 @@ namespace DotNETPriorityQueue
         /// <param name="lambda">The comparison function to use.</param>
         public PriorityQueue(int size, CompareFunction lambda)
         {
+            //do not permit construction with default comparison functions if type param is not comparable
+            if (!typeof(IComparable).IsAssignableFrom(typeof(T)) && (lambda == MinHeapCompare || lambda == MaxHeapCompare))
+            {
+                throw new InvalidCastException(
+                    $"PriorityQueue constructed with type {nameof(T)} using default comparison functions does not contain a type that implements IComparable. \n" 
+                    + $"Try defining a custom comparison function or implement IComparable for type {nameof(T)}."
+                    );
+            }
+
             count = 0;
             masterIndex = 0;
 
