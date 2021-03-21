@@ -35,7 +35,6 @@ namespace DotNETPriorityQueue
         private static readonly int INVALID = -1;
         private static readonly int DefaultCapacity = 256;
 
-        public delegate bool CompareFunction(T first, T second);
         /// <summary>
         /// Delegate: PriorityCompare (Type: CompareFunction)
         /// <para>
@@ -55,6 +54,7 @@ namespace DotNETPriorityQueue
         /// <returns>
         ///     <c>true</c> if the first item is of greater priority, and <c>false</c> otherwise.
         /// </returns>
+        public delegate bool CompareFunction(T first, T second);
         private CompareFunction PriorityCompare;
 
         /// <summary>
@@ -133,6 +133,10 @@ namespace DotNETPriorityQueue
             PriorityCompare = MaxHeapCompare;
         }
 
+        /// <summary>
+        /// Constructor overload 1: specify initial capacity of the backing heap.
+        /// </summary>
+        /// <param name="size">Initial capacity of the backing heap.</param>
         public PriorityQueue(int size)
         {
             count = 0;
@@ -146,6 +150,10 @@ namespace DotNETPriorityQueue
             PriorityCompare = MaxHeapCompare;
         }
 
+        /// <summary>
+        /// Constructor overload 2: specify a comparison function <c>lambda</c>.
+        /// </summary>
+        /// <param name="lambda">The <c>CompareFunction</c> to use.</param>
         public PriorityQueue(CompareFunction lambda)
         {
             count = 0;
@@ -159,6 +167,11 @@ namespace DotNETPriorityQueue
             PriorityCompare = lambda;
         }
 
+        /// <summary>
+        /// Constructor overload 3: specify initial heap size and a comparison function <c>lambda</c>.
+        /// </summary>
+        /// <param name="size">Initial heap size.</param>
+        /// <param name="lambda">The comparison function to use.</param>
         public PriorityQueue(int size, CompareFunction lambda)
         {
             count = 0;
