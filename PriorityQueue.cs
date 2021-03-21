@@ -377,15 +377,13 @@ namespace DotNETPriorityQueue
 			int right = RightIndexOf(curr);//the ind of right child
 
 			//as long as the left ind is not invalid
-			while (left != INVALID && left < count)
+			while (left != INVALID)
 			{
 				//the child of higher priority defaults to left
 				int toSwap = left;
 
 				//if right exists and is of higher priority, use it instead
-				if (right != INVALID 
-					&& right < count
-					&& PriorityCompare(ItemAt(right), ItemAt(left)))
+				if (right != INVALID && PriorityCompare(ItemAt(right), ItemAt(left)))
 				{
 					toSwap = right;
 				}
@@ -450,9 +448,9 @@ namespace DotNETPriorityQueue
 			//index of the left child
 			int candidate = (2 * index) + 1;
 
-			//if the candidate exceeds the capacity of the heap,
+			//if the candidate exceeds the number of elements in the heap,
 			//indicate that it can't possibly exist
-			if (candidate >= capacity || ItemAt(candidate) == null)
+			if (candidate >= count || ItemAt(candidate) == null)
 			{
 				candidate = INVALID;
 			}
@@ -472,9 +470,9 @@ namespace DotNETPriorityQueue
 			//index of the right child
 			int candidate = (2 * index) + 2;
 
-			//if the candidate exceeds the capacity of the heap,
+			//if the candidate exceeds the number of elements in the heap,
 			//indicate that it can't possibly exist
-			if (candidate >= capacity || ItemAt(candidate) == null)
+			if (candidate >= count || ItemAt(candidate) == null)
 			{
 				candidate = INVALID;
 			}
@@ -517,11 +515,13 @@ namespace DotNETPriorityQueue
 		}
 
 		/// <summary>
-		/// Performs implicit BFS on the heap to construct an array of its contents in sorted order.
+		/// Performs implicit BFS on the heap to construct an array of its contents in near-sorted order.
 		/// </summary>
 		/// <returns>A sorted array representation of the backing heap.</returns>
-		public T[] ToArraySorted()
+		public T[] ToArraySortedBFS()
 		{
+			//todo: benchmark this. it's possible that BFS + near-sorted Array.Sort() is slightly faster.
+
 			//the out-array holds the sorted heap representation
 			T[] outArray = new T[this.Count];
 
@@ -535,19 +535,60 @@ namespace DotNETPriorityQueue
 			{
 				int currentEval = searchQueue.Dequeue();
 				outArray[ind] = ItemAt(currentEval);
+				int right = RightIndexOf(currentEval);
+				int left = LeftIndexOf(currentEval);
 
-				//queue up the children if they exist
-				if (LeftIndexOf(currentEval) < this.Count)
-				{
-					searchQueue.Enqueue(LeftIndexOf(currentEval));
+				//queue up the children in order, if they exist
 
-					if (RightIndexOf(currentEval) < this.Count)
+				//two-child case: if the right child exists, the left child also exists
+				if(right != INVALID)
+                {
+					if (PriorityCompare(ItemAt(left), ItemAt(right)))
 					{
-						searchQueue.Enqueue(RightIndexOf(currentEval));
+						searchQueue.Enqueue(left);
+						searchQueue.Enqueue(right);
+					}
+					else
+					{
+						searchQueue.Enqueue(right);
+						searchQueue.Enqueue(left);
 					}
 				}
+				//one child case: only left exists
+				else if(left != INVALID)
+                {
+					searchQueue.Enqueue(left);
+				} //no child case: do nothing
+				
 				ind++;
 			}
+			Array.Sort(outArray);
+			return outArray;
+			
+		}
+
+		/// <summary>
+		/// Retrieve an array of the backing heap's contents in sorted order.
+		/// </summary>
+		/// <returns>A sorted array representation of the backing heap.</returns>
+		public T[] ToArraySorted()
+        {
+			T[] outArray = new T[this.Count];
+			T[] oldHeap = (T[])Heap.Clone();
+			int oldCount = Count;
+
+			int ind = 0;
+            while (!this.IsEmpty())
+            {
+				//populate array with ordered contents
+				outArray[ind] = this.Dequeue();
+				ind++;
+            }
+
+			//restore original heap
+			this.Heap = oldHeap;
+			count = oldCount;
+			masterIndex = count;
 
 			return outArray;
 		}

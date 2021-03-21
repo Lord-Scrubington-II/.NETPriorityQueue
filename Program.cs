@@ -35,9 +35,7 @@ namespace DotNETPriorityQueue
 				{
 					Console.WriteLine("Invalid HeapSize.");
 					badInput = true;
-				} else
-				{
-					badInput = false;
+					continue;
 				}
 
 				//get heaptype
@@ -79,8 +77,10 @@ namespace DotNETPriorityQueue
 				Console.WriteLine("Please enter a test directive: ");
 				Console.WriteLine("\ti - Insert");
 				Console.WriteLine("\tr - Remove");
+				Console.WriteLine("\tl - Look at Top");
 				Console.WriteLine("\tw - Write");
 				Console.WriteLine("\to - Write Ordered");
+				Console.WriteLine("\tc - Clear the Queue");
 				Console.WriteLine("\ts - Stop Test");
 				Console.Write("Selection: ");
 
@@ -116,7 +116,18 @@ namespace DotNETPriorityQueue
                         }
 						break;
 
-                    //on write
+					//on look top
+					case "l":
+						try
+                        {
+							Console.WriteLine($"Item at top of heap:\n {theQueue.LookTop()}");
+						} catch (InvalidOperationException)
+                        {
+							Console.WriteLine("The queue is empty!");
+						}
+						break;
+
+					//on write
 					case "w":
 						Console.WriteLine($"Contents of heap:\n {theQueue}");
 						break;
@@ -130,6 +141,12 @@ namespace DotNETPriorityQueue
 							outString += "" + i + " ";
 						}
 						Console.WriteLine($"Sorted contents of heap:\n {outString}");
+						break;
+                    
+					//on clear
+					case "c":
+						theQueue.Clear();
+						Console.WriteLine($"Priority queue has been emptied. Contents: \n {theQueue} \n");
 						break;
 
 					//on stop
