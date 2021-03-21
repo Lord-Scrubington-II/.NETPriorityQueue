@@ -379,8 +379,8 @@ namespace DotNETPriorityQueue
         /// <summary>
         /// This method restructures the tree to accommodate a removal.
         /// The insertion target is compared to its children and swapped
-        /// with the children of higher priority one until it's of 
-        /// lower priority than its parent and of higher priority than its children.
+        /// with the child of higher priority until it's of lower priority
+        /// than its parent and of higher priority than its children.
         /// </summary>
         private void ReHeapDown()
         {
@@ -674,11 +674,11 @@ namespace DotNETPriorityQueue
         }
 
         /// <summary>
-        /// Sorts any given collection of <c>IComparables</c> into a <c>List</c> using a PriorityQueue.
+        /// Sorts any given collection of IComparables into a <c>List</c> using a <c>PriorityQueue</c>.
         /// </summary>
         /// <param name="toSort">The collection to sort.</param>
         /// <param name="usingMinHeap"><c>true</c> if the elements are to be sorted in ascending order, <c>false</c> if descending.</param>
-        /// <returns>A sorted <c>List</c> of <c>IComparables</c>.</returns>
+        /// <returns>A sorted <c>List</c> of IComparables.</returns>
         public static List<IComparable> HeapSort(in ICollection<IComparable> toSort, bool usingMinHeap)
         {
             //the out list stores the elements in sorted order
