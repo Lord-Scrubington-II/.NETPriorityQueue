@@ -635,9 +635,21 @@ namespace DotNETPriorityQueue
             return Heap.GetHashCode();
         }
 
+        /// <summary>
+        /// <c>Equals()</c> override for PriorityQueues.
+        /// </summary>
+        /// <param name="other">Another <c>object</c>, which can only be equal to <c>this</c> if it is also a PriorityQueue.</param>
+        /// <returns><c>true</c> if the other object is also a PriorityQueue containing the same type and with the same contents, <c>false</c> otherwise.</returns>
         public override bool Equals(object other)
         {
-            return Heap.Equals(other);
+            if(other.GetType() == typeof(PriorityQueue<T>))
+            {
+                return (Heap.Equals(((PriorityQueue<T>)other).Heap) && count == ((PriorityQueue<T>)other).Count);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
