@@ -8,6 +8,8 @@ namespace DotNETPriorityQueue
     /// <summary>
     /// This is a custom Priority Queue that outputs elements in their sorted order using a binary heap.
     /// Comparison between elements is accomplished using a <c>delegate</c> that takes elements of type <c>T</c>.
+    /// If this comparison function is provided by the user, the objects inserted into the <c>PriorityQueue</c> do not need
+    /// to implement <c>IComparable</c>.
     /// <para>
     ///     <c>Enqueue()</c> runs in <c>O(log(n))</c> time, 
     ///     while <c>LookTop()</c> and <c>Dequeue()</c> take <c>O(1)</c>.
