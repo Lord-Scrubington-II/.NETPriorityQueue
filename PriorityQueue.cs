@@ -62,10 +62,10 @@ namespace DotNETPriorityQueue
         /// <returns><c>true</c> if the first item is greater, <c>false</c> if not.</returns>
         public static bool MaxHeapCompare(T first, T second)
         {
-            if (first is IComparable && second is IComparable)
+            if (first is IComparable fComparable && second is IComparable sComparable)
             {
-                //if the first elem is greater
-                if (((IComparable)first).CompareTo((IComparable)second) > 0)
+                //if the first elem is lesser
+                if (fComparable.CompareTo(sComparable) > 0)
                 {
                     return true;
                 }
@@ -88,10 +88,10 @@ namespace DotNETPriorityQueue
         /// <param name="second">The second item.</param>lesser, <c>false</c> if not.</returns>
         public static bool MinHeapCompare(T first, T second)
         {
-            if (first is IComparable && second is IComparable)
+            if (first is IComparable fComparable && second is IComparable sComparable)
             {
                 //if the first elem is lesser
-                if (((IComparable)first).CompareTo((IComparable)second) < 0)
+                if (fComparable.CompareTo(sComparable) < 0)
                 {
                     return true;
                 }
@@ -121,6 +121,8 @@ namespace DotNETPriorityQueue
         /// <summary>
         /// The default constructor will initialize a PriorityQueue with a backing MaxHeap of size 256.
         /// </summary>
+        /// <exception cref="InvalidCastException"></exception>
+        /// <remarks>Only use this constructor if the priority queue contains comparables.</remarks>
         public PriorityQueue()
         {
             //do not permit default construction if type param is not comparable
@@ -144,6 +146,8 @@ namespace DotNETPriorityQueue
         /// Constructor overload 1: specify initial capacity of the backing heap.
         /// </summary>
         /// <param name="size">Initial capacity of the backing heap.</param>
+        /// <exception cref="InvalidCastException"></exception>
+        /// <remarks>Only use this constructor if the priority queue contains comparables.</remarks>
         public PriorityQueue(int size)
         {
             //do not permit default construction if type param is not comparable
@@ -167,6 +171,11 @@ namespace DotNETPriorityQueue
         /// Constructor overload 2: specify a comparison function <c>lambda</c>.
         /// </summary>
         /// <param name="lambda">The <c>CompareFunction</c> to use.</param>
+        /// <exception cref="InvalidCastException"></exception>
+        /// <remarks>
+        /// Only pass in <c>PriorityQueue.MinHeapCompare</c> or <c>PriorityQueue.MaxHeapCompare</c> to <c>lambda</c> if the priority queue contains comparables.
+        /// Otherwise, use a lambda expression or define a <c>CompareFunction(T first, T second)</c> that can be passed as a delegate.
+        /// </remarks>
         public PriorityQueue(CompareFunction lambda)
         {
             //do not permit construction with default comparison functions if type param is not comparable
@@ -194,6 +203,11 @@ namespace DotNETPriorityQueue
         /// </summary>
         /// <param name="size">Initial heap size.</param>
         /// <param name="lambda">The comparison function to use.</param>
+        /// <exception cref="InvalidCastException"></exception>
+        /// <remarks>
+        /// Only pass in <c>PriorityQueue.MinHeapCompare</c> or <c>PriorityQueue.MaxHeapCompare</c> to <c>lambda</c> if the priority queue contains comparables.
+        /// Otherwise, use a lambda expression or define a <c>CompareFunction(T first, T second)</c> that can be passed as a delegate.
+        /// </remarks>
         public PriorityQueue(int size, CompareFunction lambda)
         {
             //do not permit construction with default comparison functions if type param is not comparable
@@ -241,6 +255,7 @@ namespace DotNETPriorityQueue
         /// Removes the element at the front of the PriorityQueue and returns it.
         /// </summary>
         /// <returns>The element at the top of the backing heap.</returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public T Dequeue()
         {
             if (IsEmpty())
@@ -271,6 +286,7 @@ namespace DotNETPriorityQueue
         /// Retrieves the element at the front of the PriorityQueue without removing it.
         /// </summary>
         /// <returns>The element at the top of the backing heap.</returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public T LookTop()
         {
             if (IsEmpty())
@@ -365,7 +381,7 @@ namespace DotNETPriorityQueue
         }
 
         /// <summary>
-        /// This method sees if the heap is empty by checking its occupancy.
+        /// This method checks if the heap is empty by viewing its <c>Count</c>.
         /// </summary>
         /// <returns>True if the heap is empty, false otherwise.</returns>
         public bool IsEmpty()
@@ -488,8 +504,6 @@ namespace DotNETPriorityQueue
         /// <returns>The index of the left child if found, else -1.</returns>
         private int LeftIndexOf(int index)
         {
-            //this arithmetic expression gives the
-            //index of the left child
             int candidate = (2 * index) + 1;
 
             //if the candidate exceeds the number of elements in the heap,
@@ -510,8 +524,6 @@ namespace DotNETPriorityQueue
         /// <returns>The index of the right child if found, else -1.</returns>
         private int RightIndexOf(int index)
         {
-            //this arithmetic expression gives the
-            //index of the right child
             int candidate = (2 * index) + 2;
 
             //if the candidate exceeds the number of elements in the heap,

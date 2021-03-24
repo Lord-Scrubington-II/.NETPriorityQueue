@@ -71,6 +71,13 @@ namespace DotNETPriorityQueue
                 theQueue = new PriorityQueue<int>(heapSize, PriorityQueue<int>.MaxHeapCompare);
             }
 
+            //lambda expression init test
+            PriorityQueue<List<int>> tpq = new PriorityQueue<List<int>>(
+                (a, b) => {
+                    return a.Count > b.Count;
+                }
+            );
+
             //test loop
             do
             {
