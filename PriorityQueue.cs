@@ -117,6 +117,8 @@ namespace DotNETPriorityQueue
         public int Count { get => count; }
         public bool IsSynchronized => Heap.IsSynchronized;
         public object SyncRoot => Heap.SyncRoot;
+        public bool IsEmpty { get => count == 0; }
+        private bool IsFull { get => count == capacity; }
 
         /// <summary>
         /// The default constructor will initialize a PriorityQueue with a backing MaxHeap of size 256.
@@ -236,7 +238,7 @@ namespace DotNETPriorityQueue
         /// <param name="element">The element to insert.</param>
         public void Enqueue(T element)
         {
-            if (IsFull())
+            if (IsFull)
             {
                 //expand the backing array
                 ExpandHeap();
@@ -258,7 +260,7 @@ namespace DotNETPriorityQueue
         /// <exception cref="InvalidOperationException"></exception>
         public T Dequeue()
         {
-            if (IsEmpty())
+            if (IsEmpty)
             {
                 throw new InvalidOperationException($"This PriorityQueue<{typeof(T).Name}> is empty!");
             }
@@ -289,7 +291,7 @@ namespace DotNETPriorityQueue
         /// <exception cref="InvalidOperationException"></exception>
         public T LookTop()
         {
-            if (IsEmpty())
+            if (IsEmpty)
             {
                 throw new InvalidOperationException($"This PriorityQueue<{typeof(T).Name}> is empty!");
             }
@@ -323,7 +325,7 @@ namespace DotNETPriorityQueue
         /// <returns>false if the backing heap was empty, true otherwise.</returns>
         public bool TryDequeue(out T result)
         {
-            if (IsEmpty())
+            if (IsEmpty)
             {
                 result = default(T);
                 return false;
@@ -355,7 +357,7 @@ namespace DotNETPriorityQueue
         /// <returns>false if the backing heap was empty, true otherwise.</returns>
         public bool TryLookTop(out T result)
         {
-            if (IsEmpty())
+            if (IsEmpty)
             {
                 result = default(T);
                 return false;
@@ -365,32 +367,6 @@ namespace DotNETPriorityQueue
                 result = Heap[ROOT];
                 return true;
             }
-        }
-
-        /// <summary>
-        /// This method sees if the heap is full by comparing occupancy to size.
-        /// </summary>
-        /// <returns>True if the heap is full, false otherwise.</returns>
-        private bool IsFull()
-        {
-            if (count == capacity)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// This method checks if the heap is empty by viewing its <c>Count</c>.
-        /// </summary>
-        /// <returns>True if the heap is empty, false otherwise.</returns>
-        public bool IsEmpty()
-        {
-            if (Count == 0)
-            {
-                return true;
-            }
-            return false;
         }
 
         /// <summary>
@@ -634,7 +610,7 @@ namespace DotNETPriorityQueue
             int oldCount = Count;
 
             int ind = 0;
-            while (!this.IsEmpty())
+            while (!this.IsEmpty)
             {
                 //populate array with ordered contents
                 outArray[ind] = this.Dequeue();
@@ -744,7 +720,7 @@ namespace DotNETPriorityQueue
             {
                 inHeap.Enqueue(elem);
             }
-            while (!inHeap.IsEmpty())
+            while (!inHeap.IsEmpty)
             {
                 outList.Add(inHeap.Dequeue());
             }
