@@ -189,6 +189,11 @@ namespace DotNETPriorityQueue
                     );
             }
 
+            if(lambda == null)
+            {
+                throw new NullReferenceException("A priority queue's comparison function may not be null-valued.");
+            }
+
             count = 0;
             masterIndex = 0;
 
@@ -219,6 +224,11 @@ namespace DotNETPriorityQueue
                     $"PriorityQueue constructed with type {nameof(T)} using default comparison functions does not contain a type that implements IComparable. \n" 
                     + $"Try defining a custom comparison function or implement IComparable for type {nameof(T)}."
                     );
+            }
+
+            if (lambda == null)
+            {
+                throw new NullReferenceException("A priority queue's comparison function may not be null-valued.");
             }
 
             count = 0;
