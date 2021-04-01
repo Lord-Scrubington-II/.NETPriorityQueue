@@ -708,11 +708,11 @@ namespace DotNETPriorityQueue
             PriorityQueue<IComparable> inHeap;
             if (usingMinHeap)
             {
-                inHeap = new PriorityQueue<IComparable>(PriorityQueue<IComparable>.MinHeapCompare);
+                inHeap = new PriorityQueue<IComparable>(toSort.Count, PriorityQueue<IComparable>.MinHeapCompare);
             }
             else
             {
-                inHeap = new PriorityQueue<IComparable>(PriorityQueue<IComparable>.MaxHeapCompare);
+                inHeap = new PriorityQueue<IComparable>(toSort.Count, PriorityQueue<IComparable>.MaxHeapCompare);
             }
 
             //heapsort
@@ -740,7 +740,7 @@ namespace DotNETPriorityQueue
             var outList = new List<T>(toSort.Count);
 
             //the inheap collects elements in sorted order
-            PriorityQueue<T> inHeap = new PriorityQueue<T>(lambda);
+            PriorityQueue<T> inHeap = new PriorityQueue<T>(toSort.Count, lambda);
 
             //heapsort
             foreach (T elem in toSort)
