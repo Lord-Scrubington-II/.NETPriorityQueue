@@ -727,5 +727,32 @@ namespace DotNETPriorityQueue
 
             return outList;
         }
+
+        /// <summary>
+        /// Sorts any given collection of generic objects into a <c>List</c> using a <c>PriorityQueue</c>.
+        /// </summary>
+        /// <param name="toSort">The collection to sort.</param>
+        /// <param name="lambda">The Comparison Function to use. Can be passed as a lambda expression or as a function handle.</param>
+        /// <returns>A sorted <c>List</c> of IComparables.</returns>
+        public static List<T> HeapSort(in ICollection<T> toSort, CompareFunction lambda)
+        {
+            //the out list stores the elements in sorted order
+            var outList = new List<T>(toSort.Count);
+
+            //the inheap collects elements in sorted order
+            PriorityQueue<T> inHeap = new PriorityQueue<T>(lambda);
+
+            //heapsort
+            foreach (T elem in toSort)
+            {
+                inHeap.Enqueue(elem);
+            }
+            while (!inHeap.IsEmpty)
+            {
+                outList.Add(inHeap.Dequeue());
+            }
+
+            return outList;
+        }
     }
 }
