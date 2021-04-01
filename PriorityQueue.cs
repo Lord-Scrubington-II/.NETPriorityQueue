@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 
 namespace DotNETPriorityQueue
-{
+{   //Copyright 2021 Zane Wang
     /// <summary>
     /// This is a custom Priority Queue that outputs elements in their sorted order using a binary heap.
     /// Comparison between elements is accomplished using a <c>delegate</c> that takes elements of type <c>T</c>.
@@ -562,7 +562,7 @@ namespace DotNETPriorityQueue
         /// <returns>A sorted array representation of the backing heap.</returns>
         public T[] ToArraySortedBFS()
         {
-            //todo: benchmark this. it's possible that BFS + near-sorted Array.Sort() is slightly faster.
+            //TODO: benchmark this. it's possible that BFS + near-sorted Array.Sort() is slightly faster.
 
             //the out-array holds the sorted heap representation
             T[] outArray = new T[this.Count];
