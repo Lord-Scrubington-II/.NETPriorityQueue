@@ -186,12 +186,7 @@ namespace DotNETPriorityQueue
                 throw new InvalidCastException(
                     $"PriorityQueue constructed with type {nameof(T)} using default comparison functions does not contain a type that implements IComparable. \n" 
                     + $"Try defining a custom comparison function or implement IComparable for type {nameof(T)}."
-                    );
-            }
-
-            if(lambda == null)
-            {
-                throw new NullReferenceException("A priority queue's comparison function may not be null-valued.");
+                );
             }
 
             count = 0;
@@ -202,7 +197,7 @@ namespace DotNETPriorityQueue
             Heap = new T[DefaultCapacity];
 
             //init delegate
-            PriorityCompare = lambda;
+            PriorityCompare = lambda ?? throw new NullReferenceException("A priority queue's comparison function may not be null-valued.");
         }
 
         /// <summary>
@@ -223,12 +218,7 @@ namespace DotNETPriorityQueue
                 throw new InvalidCastException(
                     $"PriorityQueue constructed with type {nameof(T)} using default comparison functions does not contain a type that implements IComparable. \n" 
                     + $"Try defining a custom comparison function or implement IComparable for type {nameof(T)}."
-                    );
-            }
-
-            if (lambda == null)
-            {
-                throw new NullReferenceException("A priority queue's comparison function may not be null-valued.");
+                );
             }
 
             count = 0;
@@ -239,7 +229,7 @@ namespace DotNETPriorityQueue
             Heap = new T[size];
 
             //init delegate
-            PriorityCompare = lambda;
+            PriorityCompare = lambda ?? throw new NullReferenceException("A priority queue's comparison function may not be null-valued.");
         }
 
         /// <summary>
@@ -380,6 +370,25 @@ namespace DotNETPriorityQueue
         }
 
         /// <summary>
+        /// Refreshes the PriorityQueue. Call this method if the PriorityQueue contains reference types whose fields have changed.
+        /// </summary>
+        /// <returns><c>true</c> if the queue was successfully refreshed; <c>false</c> if it was empty.</returns>
+        public bool Refresh()
+        {
+            if (this.IsEmpty)
+            {
+                return false;
+            }
+
+            for(int i = 0; i < Count; i++)
+            {
+                ReHeapUp(i);
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// This method restructures the tree to accomodate an insertion.
         /// The inserted item is compared to its parent and swapped 
         /// with it until it's of lower priority than its parent 
@@ -389,6 +398,37 @@ namespace DotNETPriorityQueue
         {
             //new insert is behind the next empty index	
             int curr = masterIndex - 1;
+
+            //as long as the item is not at the root
+            //and not of higher priority than its parent
+            while (curr > ROOT)
+            {
+                int parent = ParentIndexOf(curr);
+
+                //if the current item is of higher priority than its parent
+                if (PriorityCompare(ItemAt(curr), ItemAt(parent)))
+                {
+                    //swap and move index up 
+                    Swap(parent, curr);
+                    curr = parent;
+                }
+                else //otherwise, its in the right place
+                {
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Restores the heap property from the specified index in the backing heap.
+        /// The item in question is compared to its parent and swapped 
+        /// with it until it's of lower priority than its parent 
+        /// and of higher priority than its children.
+        /// </summary>
+        /// <param name="from">The out-of-order index.</param>
+        private void ReHeapUp(int from)
+        {
+            int curr = from;
 
             //as long as the item is not at the root
             //and not of higher priority than its parent
@@ -562,7 +602,7 @@ namespace DotNETPriorityQueue
         /// <returns>A sorted array representation of the backing heap.</returns>
         public T[] ToArraySortedBFS()
         {
-            //TODO: benchmark this. it's possible that BFS + near-sorted Array.Sort() is slightly faster.
+            //TODO: benchmark this. it's possible that BFS + near-sorted Array.Sort() is slightly faster than cloning the backing heap.
 
             //the out-array holds the sorted heap representation
             T[] outArray = new T[this.Count];
@@ -636,6 +676,30 @@ namespace DotNETPriorityQueue
         }
 
         /// <summary>
+        /// Flushes the contents of this PriorityQueue in sorted order to a <c>List</c> as an <c>out</c> parameter.
+        /// The PriorityQueue will be empty after this method exits. This is an <c>O(n)</c> operation.
+        /// </summary>
+        /// <param name="target">An uninitialized <c>List</c>.</param>
+        /// <returns><c>true</c> if the PriorityQueue was successfully flushed; <c>false</c> if the PriorityQueue was full.</returns>
+        public bool FlushToContainer(out List<T> target)
+        {
+            if (this.IsEmpty)
+            {
+                target = null;
+                return false;
+            }
+            else
+            {
+                target = new List<T>(this.Count);
+                while (!IsEmpty)
+                {
+                    target.Add(this.Dequeue());
+                }
+                return true;
+            }
+        }
+
+        /// <summary>
         /// Returns a shallow copy of the backing heap.
         /// </summary>
         /// <returns>An unsorted array representation of the backing heap.</returns>
@@ -687,8 +751,6 @@ namespace DotNETPriorityQueue
         /// <returns>The elements of the backing heap.</returns>
         public override string ToString()
         {
-
-            //add to string Heap's datafields
             string theString = $"The heap contains {count} items and has capacity {capacity}.\n";
 
             // go through all heap elements, add them to string
