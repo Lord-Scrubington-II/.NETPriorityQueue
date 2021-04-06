@@ -85,7 +85,7 @@ namespace DotNETPriorityQueue
         /// (Lesser elements will have higher priority.)
         /// </summary>
         /// <param name="first">The first item.</param>
-        /// <param name="second">The second item.</param>lesser, <c>false</c> if not.</returns>
+        /// <returns><param name="second">The second item.</param>lesser, <c>false</c> if not.</returns>
         public static bool MinHeapCompare(T first, T second)
         {
             if (first is IComparable fComparable && second is IComparable sComparable)
@@ -105,7 +105,7 @@ namespace DotNETPriorityQueue
             }
         }
 
-        //Properties for the PriorityQueue's metadata
+        //Properties for the PriorityQueue's datafields
         /// <summary>
         /// The priority queue is backed by a binary heap, which is an array of generics.
         /// An item on the heap is in the correct spot if it is
@@ -680,7 +680,7 @@ namespace DotNETPriorityQueue
         /// The PriorityQueue will be empty after this method exits. This is an <c>O(n)</c> operation.
         /// </summary>
         /// <param name="target">An uninitialized <c>List</c>.</param>
-        /// <returns><c>true</c> if the PriorityQueue was successfully flushed; <c>false</c> if the PriorityQueue was full.</returns>
+        /// <returns><c>true</c> if the PriorityQueue was successfully flushed; <c>false</c> if the PriorityQueue was empty.</returns>
         public bool FlushToContainer(out List<T> target)
         {
             if (this.IsEmpty)
