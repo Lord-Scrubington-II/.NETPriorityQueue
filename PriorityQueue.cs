@@ -6,7 +6,7 @@ using System;
 namespace DotNETPriorityQueue
 {   //Copyright 2021 Zane Wang
     /// <summary>
-    /// This is a custom Priority Queue that outputs elements in their sorted order using a binary heap.
+    /// Priority Queues output elements in their sorted order using a binary heap.
     /// Comparison between elements is accomplished using a <c>delegate</c> that takes elements of type <c>T</c>.
     /// If this comparison function is provided by the user, the objects inserted into the <c>PriorityQueue</c> do not need
     /// to implement <c>IComparable</c>.

@@ -4,7 +4,6 @@ C:\Users\Zane\projects\.NET PriorityQueue\bin\Debug\netcoreapp3.1\DotnetPriority
 C:\Users\Zane\projects\.NET PriorityQueue\bin\Debug\netcoreapp3.1\DotnetPriorityQueue.runtimeconfig.dev.json
 C:\Users\Zane\projects\.NET PriorityQueue\bin\Debug\netcoreapp3.1\DotnetPriorityQueue.dll
 C:\Users\Zane\projects\.NET PriorityQueue\bin\Debug\netcoreapp3.1\DotnetPriorityQueue.pdb
-C:\Users\Zane\projects\.NET PriorityQueue\obj\Debug\netcoreapp3.1\DotnetPriorityQueue.csprojAssemblyReference.cache
 C:\Users\Zane\projects\.NET PriorityQueue\obj\Debug\netcoreapp3.1\DotnetPriorityQueue.AssemblyInfoInputs.cache
 C:\Users\Zane\projects\.NET PriorityQueue\obj\Debug\netcoreapp3.1\DotnetPriorityQueue.AssemblyInfo.cs
 C:\Users\Zane\projects\.NET PriorityQueue\obj\Debug\netcoreapp3.1\DotnetPriorityQueue.csproj.CoreCompileInputs.cache
