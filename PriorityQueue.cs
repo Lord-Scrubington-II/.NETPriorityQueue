@@ -31,7 +31,7 @@ namespace DotNETPriorityQueue
         private static readonly int DefaultCapacity = 256;
 
         /// <summary>
-        /// Delegate: PriorityCompare (Type: CompareFunction)
+        /// Delegate: CompareFunction
         /// <para>
         ///     The priority queue contains a comparison delegate which compares the priorities of two of its elements.
         ///     This delegate can be provided through the constructor or it can be one of the following default implementations:
