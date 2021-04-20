@@ -11,8 +11,8 @@ namespace DotNETPriorityQueue
     /// If this comparison function is provided by the user, the objects inserted into the <c>PriorityQueue</c> do not need
     /// to implement <c>IComparable</c>.
     /// <para>
-    ///     <c>Enqueue()</c> runs in <c>O(log(n))</c> time, 
-    ///     while <c>LookTop()</c> and <c>Dequeue()</c> take <c>O(1)</c>.
+    ///     <c>Enqueue()</c> and <c>Dequeue()</c> run in <c>O(log(n))</c> time, 
+    ///     while <c>LookTop()</c> takes <c>O(1)</c>.
     /// </para>
     /// Author: Zane Wang
     /// </summary>
