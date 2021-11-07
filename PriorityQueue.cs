@@ -677,7 +677,7 @@ namespace DotNETPriorityQueue
 
         /// <summary>
         /// Flushes the contents of this PriorityQueue in sorted order to a <c>List</c> as an <c>out</c> parameter.
-        /// The PriorityQueue will be empty after this method exits. This is an <c>O(n)</c> operation.
+        /// The PriorityQueue will be empty after this method exits. This is an <c>O(log(n))</c> operation.
         /// </summary>
         /// <param name="target">An uninitialized <c>List</c>.</param>
         /// <returns><c>true</c> if the PriorityQueue was successfully flushed; <c>false</c> if the PriorityQueue was empty.</returns>
