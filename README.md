@@ -10,7 +10,7 @@ UPDATE 3/20: I have written a program that tests the PriorityQueue with signed i
 Simply download or fork this repository and add `PriorityQueue.cs` to your project's solution. For Unity users, copy `PriorityQueue.cs` into the unity project's `Assets` folder. Usage instructions can be found in the code's documentation comments. (Also, don't forget to add the `using DotNETPriorityQueue` directive to the files in which you want to use the PriorityQueue.)
 
 ## Justification
-For a Unity game project of mine, one of the algorithms I wanted to implement required the use of a priority queue; however, .NET does not provide a default implementation of one. The result is my very own attempt at writing an efficient, feature-complete, generic, and .NET compliant PriorityQueue<T> using C#. It's probably not perfect, but I intend to improve it with time.  
+My attempt at an open source contribution. For a Unity game project of mine, one of the algorithms I wanted to implement required the use of a priority queue; however, .NET does not provide a default implementation of one. The result is my very own attempt at writing an efficient, feature-complete, generic, and .NET compliant PriorityQueue<T> using C#. It's probably not perfect, but I intend to improve it with time. 
  
  
- This repository is licensed under the Apache License 2.0.
+ This repository is licensed under the Apache License 2.0. 
